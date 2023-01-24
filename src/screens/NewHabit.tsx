@@ -32,7 +32,7 @@ export function NewHabit() {
             </Text>
 
             <TextInput
-               className="h-12 bg-zinc-800 rounded-lg pl-4 text-white mt-3 focus:border-2 focus:border-green-600"
+               className="h-12 bg-zinc-900 rounded-lg pl-4 text-white mt-3 border-2 border-zinc-800 focus:border-green-600"
                placeholder="Ex.: Exercises, sleeping hours, etc..."
                placeholderTextColor={colors.zinc[400]}
             />
