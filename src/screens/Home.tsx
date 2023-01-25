@@ -1,18 +1,47 @@
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Alert, ScrollView, Text, View } from "react-native";
+import { api } from "../api/axios";
 import { DAY_SIZE, HabitDay } from "../components/HabitDay";
 import { Header } from "../components/Header";
+import { Loading } from "../components/Loading";
 import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
 
 const weekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const datesFromYearStart = generateRangeDatesFromYearStart();
-
 const minimumSummaryDateSize = 18 * 8;
 const amoutOfDaysToFill = minimumSummaryDateSize - datesFromYearStart.length;
 
 export function Home() {
    const { navigate } = useNavigation();
 
+   const [loading, setLoading] = useState(false);
+   const [summary, setSummary] = useState(null);
+
+
+   useEffect(() => {
+      api.get('/summary').then(response => {
+         console.log(response);
+      });
+      // (async () => {
+      //    try {
+      //       setLoading(true);
+      //       console.log('ssss')
+      //       const result = await api.get('/summary');
+      //       console.log(result.data);
+      //       setSummary(result.data);
+      //    } catch (error: any) {
+      //       Alert.alert('Ops', 'Não foi possível carregar o sumário');
+      //       console.log(error);
+      //    } finally {
+      //       setLoading(false);
+      //    }
+      // })();
+   }, [])
+
+   if (loading) {
+      return (<Loading />);
+   }
    return (
       <View className="flex-1 bg-background px-8 pt-16">
          <Header />
